@@ -4,9 +4,9 @@
 #include <stdint.h>
 #include "priority_queue.h"
 
-#define PARENT(i)((uint64_t)i-2)/2
-#define LEFT(i)(2*(uint64_t)i+(uint64_t)i)
-#define RIGHT(i)(2*(uint64_t)i+2)
+#define PARENT(i)(((uint64_t)i-1U)/2U)
+#define LEFT(i)(2U*(uint64_t)i+1U)
+#define RIGHT(i)(2U*(uint64_t)i+2U)
 
 typedef struct {
     uint64_t key;
