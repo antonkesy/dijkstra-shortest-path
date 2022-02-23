@@ -53,3 +53,6 @@ dkms.conf
 
 # IDEA
 **/.idea/**
+
+# output directoires
+bin/**
