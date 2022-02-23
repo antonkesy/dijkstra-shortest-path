@@ -13,12 +13,17 @@ typedef struct {
     void *value;
 } node_t;
 
+
 typedef struct {
     node_t *elements;
     uint64_t capacity;
     uint64_t heap_size;
 } priority_queue_p_t;
 
-void heapify(priority_queue_p_t *queue);
+void heapify(priority_queue_p_t *queue, uint64_t index);
+
+void swap(node_t *a, node_t *b);
+
+void decrease_key(priority_queue_p_t *queue, uint64_t index, uint64_t new_value);
 
 #endif //DIJKSTRA_SHORTEST_PATH_PRIORITY_QUEUE_P_H
