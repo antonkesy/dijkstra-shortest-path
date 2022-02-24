@@ -14,22 +14,18 @@ void test_small() {
     node_t nodes[4];
 
     edge_t n0_e[2];
-    //
     n0_e[0].to = &nodes[1];
     n0_e[0].cost = 1;
-    //
     n0_e[1].to = &nodes[3];
     n0_e[1].cost = 5;
-
-    edge_t n1_e = {&nodes[3], 1};
-    edge_t n2_e = {&nodes[2], 1};
-
     edges_t e_n0 = {2, n0_e};
     nodes[0].edges = e_n0;
 
+    edge_t n1_e = {&nodes[2], 1};
     edges_t e_n1 = {1, &n1_e};
     nodes[1].edges = e_n1;
 
+    edge_t n2_e = {&nodes[3], 1};
     edges_t e_n2 = {1, &n2_e};
     nodes[2].edges = e_n2;
 
