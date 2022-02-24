@@ -38,15 +38,16 @@ void test_small() {
     graph_t graph = {4, nodes};
 
     shortest_paths_t *paths = get_shortest_paths(&nodes[0], &graph);
-    if (paths == NULL) exit(-1);
+    if (paths == NULL) exit(1);
 
     //find path to n3 and check correct values
     for (uint64_t i = 0U; i < paths->count; ++i) {
         if (paths->paths[i].to == &nodes[3]) {
             path_t path = paths->paths[i];
-            if (get_path_cost(&path) != 1) {
+            if (get_path_cost(&path) != 3) {
                 printf("path n0 -> n3 not correct!\n");
-                exit(-1);
+                printf("should cost 3 but was %zu\n", get_path_cost(&path));
+                exit(1);
             }
             delete_shortest_paths(paths);
             return;
@@ -54,7 +55,7 @@ void test_small() {
     }
 
     printf("couldn't find paths!\n");
-    exit(-1);
+    exit(1);
 }
 
 int main() {
