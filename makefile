@@ -18,6 +18,9 @@ PRIO_Q_TESTS = ${TEST_BIN_DIR}/priority_queue
 DIJKSTRA_SHORTEST_PATH_LIB_STATIC: SHORTEST_PATH_O PRIORITY_QUE_O
 	ar rcs ${$@} ${SHORTEST_PATH_O} ${PRIORITY_QUE_O}
 
+DIJKSTRA_SHORTEST_PATH_LIB_SHARED: SHORTEST_PATH_O PRIORITY_QUE_O
+	gcc -shared -fPIC -Wl,-soname,libdijkstra_shortest_path.so.1 -o ${LIB_DIR}/libdijkstra_shortest_path.so.1 ${SHORTEST_PATH_O} ${PRIORITY_QUE_O}
+
 SHORTEST_PATH_O: include/dijkstra_shortest_path.h src/dijkstra_shortest_path.c
 	$(CC) ${CFLAGS} src/dijkstra_shortest_path.c -c -o ${$@}
 
