@@ -35,7 +35,7 @@ void update_paths(shortest_paths_t paths, node_t node) {
 }
 
 uint64_t get_path_costs(shortest_paths_t *paths, node_t *node) {
-    shortest_path_t *path = get_path(paths, node);
+    path_t *path = get_path(paths, node);
 
     //add new
     if (path == NULL) {
@@ -43,7 +43,7 @@ uint64_t get_path_costs(shortest_paths_t *paths, node_t *node) {
 
 }
 
-shortest_path_t *get_path(shortest_paths_t *paths, node_t *node) {
+path_t *get_path(shortest_paths_t *paths, node_t *node) {
     for (int i = 0; i < paths->count; ++i) {
         if (paths->paths[i].dest == node) {
             return &paths->paths[i];
@@ -55,14 +55,14 @@ shortest_path_t *get_path(shortest_paths_t *paths, node_t *node) {
 shortest_paths_t *create_shortest_paths(const graph_t *graph) {
     shortest_paths_t *paths = malloc(sizeof(shortest_paths_t));
     if (paths == NULL) return NULL;
-    shortest_path_t *path_array = malloc(sizeof(shortest_path_t) * graph->size);
+    path_t *path_array = malloc(sizeof(path_t) * graph->size);
     if (path_array == NULL) return NULL;
     paths->paths = path_array;
     paths->count = graph->size;
 
     //fill all paths with inf (MAX)
     for (uint64_t i = 0U; i < graph->size; ++i) {
-        shortest_path_t *path = malloc(sizeof(shortest_path_t));
+        path_t *path = malloc(sizeof(path_t));
         if (path == NULL) {
             delete_shortest_paths(paths);
             return NULL;

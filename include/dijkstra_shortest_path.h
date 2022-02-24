@@ -30,11 +30,11 @@ typedef struct {
     uint64_t hops; //amount of nodes/hops from start to dest
     node_t *nodes; //ordered from first to last
     uint64_t cost;
-} shortest_path_t;
+} path_t;
 
 typedef struct {
     uint64_t count; //count of paths
-    shortest_path_t *paths;
+    path_t *paths;
 } shortest_paths_t;
 
 //nodes_count: other_nodes + 1

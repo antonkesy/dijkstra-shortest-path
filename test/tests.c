@@ -41,7 +41,7 @@ void test_small() {
     //find path to n3 and check correct values
     for (uint64_t i = 0U; i < paths->count; ++i) {
         if (paths->paths[i].dest == &nodes[3]) {
-            shortest_path_t path = paths->paths[i];
+            path_t path = paths->paths[i];
             if (path.cost != 1 || path.hops != 1 && path.nodes != &nodes[3]) {
                 printf("paht n0 -> n3 not correct!\n");
                 exit(-1);
