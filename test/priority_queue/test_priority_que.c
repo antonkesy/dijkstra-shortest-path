@@ -4,7 +4,7 @@
 
 void test_insert_extract_min() {
     const size_t elements = 1000U;
-    priority_queue_t q = create_queue(elements);
+    priority_queue_ptr_t q = create_queue(elements);
     size_t values[elements];
     for (size_t i = 0U; i < elements; ++i) {
         size_t key_value = elements - i - 1;
@@ -19,6 +19,8 @@ void test_insert_extract_min() {
             exit(-1);
         }
     }
+
+    delete_queue(q);
 }
 
 int main() {

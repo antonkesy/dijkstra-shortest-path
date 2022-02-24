@@ -2,7 +2,7 @@
 #include "priority_queue_p.h"
 #include <malloc.h>
 
-priority_queue_t create_queue(uint64_t capacity) {
+priority_queue_ptr_t create_queue(uint64_t capacity) {
     priority_queue_p_t *q = malloc(sizeof(priority_queue_p_t));
 
     q->elements = malloc(sizeof(node_t) * capacity);
@@ -14,10 +14,10 @@ priority_queue_t create_queue(uint64_t capacity) {
     q->capacity = capacity;
     q->heap_size = 0;
 
-    return (priority_queue_t) q;
+    return (priority_queue_ptr_t) q;
 }
 
-void *extract_min(priority_queue_t queue) {
+void *extract_min(priority_queue_ptr_t queue) {
     priority_queue_p_t *q = (priority_queue_p_t *) queue;
 
     if (q->heap_size == 0) {
@@ -40,7 +40,7 @@ void *extract_min(priority_queue_t queue) {
     return root_value;
 }
 
-bool insert(priority_queue_t queue, uint64_t key, void *value) {
+bool insert(priority_queue_ptr_t queue, uint64_t key, void *value) {
     priority_queue_p_t *q = (priority_queue_p_t *) queue;
     if (q->capacity == q->heap_size) return false;
 
@@ -54,7 +54,7 @@ bool insert(priority_queue_t queue, uint64_t key, void *value) {
     return true;
 }
 
-bool update_key(priority_queue_t queue, uint64_t key, uint64_t new_value) {
+bool update_key(priority_queue_ptr_t queue, uint64_t key, uint64_t new_value) {
     priority_queue_p_t *q = (priority_queue_p_t *) queue;
 
     for (uint64_t i = 0U; i < q->heap_size; ++i) {
@@ -98,4 +98,10 @@ void decrease_key(priority_queue_p_t *queue, uint64_t index, uint64_t new_value)
         index = PARENT(index);
     }
 
+}
+
+void delete_queue(priority_queue_ptr_t queue) {
+    priority_queue_p_t *q = (priority_queue_p_t *) queue;
+    free(q->elements);
+    free(q);
 }
