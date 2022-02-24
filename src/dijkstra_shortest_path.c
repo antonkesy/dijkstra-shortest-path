@@ -19,7 +19,7 @@ shortest_paths_t *get_shortest_paths(node_t *src, graph_t *graph) {
     }
 
     //add src to paths first
-    path_t src_path = {0, src, 0};
+    path_t src_path = {NULL, src, NULL};
     if (!add_new_path(paths, src_path)) {
         delete_queue(queue);
         delete_shortest_paths(paths);
