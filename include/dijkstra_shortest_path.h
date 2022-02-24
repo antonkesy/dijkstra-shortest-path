@@ -6,8 +6,8 @@
 struct node;
 
 typedef struct {
-    struct node *to; //from is clear since edge is from a node
-    uint64_t cost;
+    struct node *to; //from is clear since via is from a node
+    uint64_t cost; //sum of cost should not overflow!
 } edge_t;
 
 typedef struct {
@@ -25,11 +25,10 @@ typedef struct {
     node_t *nodes;
 } graph_t;
 
-typedef struct {
-    node_t *dest;
-    uint64_t hops; //amount of nodes/hops from start to dest
-    node_t *nodes; //ordered from first to last
-    uint64_t cost;
+typedef struct path_ {
+    struct path_ *from;
+    node_t *to;
+    edge_t *via;
 } path_t;
 
 typedef struct {
@@ -37,9 +36,10 @@ typedef struct {
     path_t *paths;
 } shortest_paths_t;
 
-//nodes_count: other_nodes + 1
 shortest_paths_t *get_shortest_paths(node_t *src, graph_t *graph);
 
 void delete_shortest_paths(shortest_paths_t *paths);
+
+uint64_t get_path_cost(path_t *path);
 
 #endif //DIJKSTRA_SHORTEST_PATH_H

@@ -13,25 +13,27 @@
 void test_small() {
     node_t nodes[4];
 
-    edge_t n1_e[2];
+    edge_t n0_e[2];
     //
-    n1_e[0].to = &nodes[4];
-    n1_e[0].cost = 1;
+    n0_e[0].to = &nodes[1];
+    n0_e[0].cost = 1;
     //
-    n1_e[1].to = &nodes[1];
-    n1_e[1].cost = 5;
+    n0_e[1].to = &nodes[3];
+    n0_e[1].cost = 5;
 
-    edge_t n2_e = {&nodes[3], 1};
-    edge_t n4_3 = {&nodes[2], 1};
+    edge_t n1_e = {&nodes[3], 1};
+    edge_t n2_e = {&nodes[2], 1};
 
-    edges_t e_n0 = {2, n1_e};
+    edges_t e_n0 = {2, n0_e};
     nodes[0].edges = e_n0;
 
-    edges_t e_n1 = {1, &n2_e};
+    edges_t e_n1 = {1, &n1_e};
     nodes[1].edges = e_n1;
 
-    edges_t e_n2 = {1, &n4_3};
+    edges_t e_n2 = {1, &n2_e};
     nodes[2].edges = e_n2;
+
+    nodes[3].edges.count = 0U;
 
     graph_t graph = {4, nodes};
 
@@ -40,17 +42,19 @@ void test_small() {
 
     //find path to n3 and check correct values
     for (uint64_t i = 0U; i < paths->count; ++i) {
-        if (paths->paths[i].dest == &nodes[3]) {
+        if (paths->paths[i].to == &nodes[3]) {
             path_t path = paths->paths[i];
-            if (path.cost != 1 || path.hops != 1 && path.nodes != &nodes[3]) {
+            if (get_path_cost(&path) != 1) {
                 printf("path n0 -> n3 not correct!\n");
                 exit(-1);
             }
+            delete_shortest_paths(paths);
+            return;
         }
     }
 
-
-    delete_shortest_paths(paths);
+    printf("couldn't find paths!\n");
+    exit(-1);
 }
 
 int main() {
