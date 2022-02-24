@@ -14,6 +14,6 @@ void *extract_min(priority_queue_ptr_t queue);
 
 bool insert(priority_queue_ptr_t queue, uint64_t key, void *value);
 
-bool update_key(priority_queue_ptr_t queue, uint64_t key, uint64_t new_value);
+bool update_key_by_value(priority_queue_ptr_t queue, void *value, uint64_t new_value);
 
 #endif //DIJKSTRA_SHORTEST_PATH_PRIORITY_QUEUE_H

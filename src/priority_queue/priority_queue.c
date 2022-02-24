@@ -54,11 +54,11 @@ bool insert(priority_queue_ptr_t queue, uint64_t key, void *value) {
     return true;
 }
 
-bool update_key(priority_queue_ptr_t queue, uint64_t key, uint64_t new_value) {
+bool update_key_by_value(priority_queue_ptr_t queue, void *value, uint64_t new_value) {
     priority_queue_p_t *q = (priority_queue_p_t *) queue;
 
     for (uint64_t i = 0U; i < q->heap_size; ++i) {
-        if (q->elements[i].key == key) {
+        if (q->elements[i].value == value) {
             q->elements[i].key = new_value;
             //TODO really need to go from root?
             heapify(q, 0);
