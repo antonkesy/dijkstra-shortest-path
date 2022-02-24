@@ -62,6 +62,8 @@ shortest_paths_t *get_shortest_paths(node_t *src, graph_t *graph) {
         min_node = (node_t *) extract_min(queue);
     }
 
+    delete_queue(queue);
+
     return paths;
 }
 
