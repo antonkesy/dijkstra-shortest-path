@@ -43,7 +43,7 @@ void test_small() {
         if (paths->paths[i].dest == &nodes[3]) {
             path_t path = paths->paths[i];
             if (path.cost != 1 || path.hops != 1 && path.nodes != &nodes[3]) {
-                printf("paht n0 -> n3 not correct!\n");
+                printf("path n0 -> n3 not correct!\n");
                 exit(-1);
             }
         }
