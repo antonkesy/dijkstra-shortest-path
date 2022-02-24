@@ -1,7 +1,6 @@
 #include <stddef.h>
 #include <malloc.h>
 #include <memory.h>
-#include <assert.h>
 #include "../include/dijkstra_shortest_path.h"
 #include "priority_queue/priority_queue.h"
 #include "dijkstra_shortest_path_p.h"
@@ -31,17 +30,13 @@ shortest_paths_t *get_shortest_paths(node_t *src, graph_t *graph) {
 
     while (min_node != NULL) {
         path_t *min_node_path = get_path(paths, min_node);
-        assert(min_node_path);
         for (size_t neighbours = 0; neighbours < min_node->edges.count; ++neighbours) {
             edge_t *edge = &(min_node->edges.edges[neighbours]);
-            assert(edge);
             path_t *neighbour_path = get_path(paths, edge->to);
-            assert(edge->to);
 
             if (neighbour_path == NULL) {
                 //add new path
                 path_t new_path = {min_node_path, edge->to, edge};
-                assert(&new_path);
                 uint64_t new_path_cost = get_path_cost(&new_path);
                 if (!add_new_path(paths, new_path)) {
                     delete_shortest_paths(paths);
