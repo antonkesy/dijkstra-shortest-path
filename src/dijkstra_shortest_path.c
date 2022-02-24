@@ -29,8 +29,6 @@ shortest_paths_t *get_shortest_paths(node_t *src, graph_t *graph) {
 
     node_t *min_node = src;
 
-    //TODO change what is getting loaded into priority queue
-
     while (min_node != NULL) {
         path_t *min_node_path = get_path(paths, min_node);
         assert(min_node_path);
