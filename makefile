@@ -22,14 +22,16 @@ PRIORITY_QUE_O: src/priority_queue/priority_queue.h src/priority_queue/priority_
 
 TESTS: test/tests.c DIJKSTRA_SHORTEST_PATH_LIB_STATIC
 	gcc $< ${DIJKSTRA_SHORTEST_PATH_LIB_STATIC} -o ${$@}
-	./${TESTS}
 
 PRIO_Q_TESTS: test/priority_queue/test_priority_que.c PRIORITY_QUE_O
 	gcc $< ${PRIORITY_QUE_O} -o ${$@}
-	./${PRIO_Q_TESTS}
 
 directories:
 	mkdir -p ${DIRS}
+
+test: TESTS PRIO_Q_TESTS
+	./${TESTS}
+	./${PRIO_Q_TESTS}
 
 clean:
 	-rm ${DIRS} -drf
