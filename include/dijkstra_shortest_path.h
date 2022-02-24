@@ -16,14 +16,9 @@ typedef struct {
 } edges_t;
 
 typedef struct node {
-    void *value;
+    void *value; //if nodes should represent something
     edges_t edges;
 } node_t;
-
-typedef struct {
-    uint64_t size;
-    node_t *nodes;
-} graph_t;
 
 typedef struct path_ {
     struct path_ *from;
@@ -36,10 +31,15 @@ typedef struct {
     path_t *paths;
 } shortest_paths_t;
 
+typedef struct {
+    uint64_t size;
+    node_t *nodes;
+} graph_t;
+
 shortest_paths_t *get_shortest_paths(node_t *src, graph_t *graph);
 
-void delete_shortest_paths(shortest_paths_t *paths);
-
 uint64_t get_path_cost(path_t *path);
+
+void delete_shortest_paths(shortest_paths_t *paths);
 
 #endif //DIJKSTRA_SHORTEST_PATH_H
