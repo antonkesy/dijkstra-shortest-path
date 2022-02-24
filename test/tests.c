@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <assert.h>
 #include "../include/dijkstra_shortest_path.h"
 
 // (n0) - 1 > (n1)
@@ -54,9 +55,28 @@ void test_small() {
     exit(1);
 }
 
+void test_get_path_size() {
+    node_t nodes[3];
+
+    path_t start = {NULL, &nodes[0], NULL};
+    get_path_cost(&start);
+
+    path_t empty_next = {&start, &nodes[1], NULL};
+    get_path_cost(&empty_next);
+
+    edge_t edge_1 = {&nodes[1], 5};
+    path_t next_1 = {&empty_next, &nodes[3], &edge_1};
+    assert(get_path_cost(&next_1) == 5);
+
+    edge_t edge_2 = {&nodes[2], 5};
+    path_t next_2 = {&next_1, &nodes[3], &edge_2};
+    assert(get_path_cost(&next_2) == 10);
+}
+
 int main() {
     //list all test which fail program when failing
-    test_small();
+//    test_small();
+    test_get_path_size();
 
     printf("test successfully done!");
     return 0;
