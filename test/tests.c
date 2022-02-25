@@ -75,9 +75,9 @@ void test_get_path_size() {
 
 int main() {
     //list all test which fail program when failing
-//    test_small();
+    test_small();
     test_get_path_size();
 
-    printf("test successfully done!");
+    printf("dijkstra tests successfully done!");
     return 0;
 }
