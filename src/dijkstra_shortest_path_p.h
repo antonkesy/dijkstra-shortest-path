@@ -3,7 +3,7 @@
 
 #include "../include/dijkstra_shortest_path.h"
 
-shortest_paths_t *create_shortest_paths(const graph_t *graph);
+shortest_paths_t *create_shortest_paths();
 
 path_t *get_path(shortest_paths_t *paths, node_t *node);
 

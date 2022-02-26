@@ -22,7 +22,6 @@ typedef struct node {
 
 typedef struct path_ {
     struct path_ *from;
-    node_t *to;
     edge_t *via;
 } path_t;
 
@@ -38,7 +37,7 @@ typedef struct {
 
 shortest_paths_t *get_shortest_paths(node_t *src, graph_t *graph);
 
-uint64_t get_path_cost(path_t *path);
+uint64_t get_path_cost(const path_t *path);
 
 void delete_shortest_paths(shortest_paths_t *paths);
 

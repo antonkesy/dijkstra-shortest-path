@@ -8,7 +8,7 @@
 
 shortest_paths_t *get_shortest_paths(node_t *src, graph_t *graph) {
     //prepare return values;
-    shortest_paths_t *paths = create_shortest_paths(graph);
+    shortest_paths_t *paths = create_shortest_paths();
     if (paths == NULL) return NULL;
 
     priority_queue_ptr_t queue = create_queue(graph->size);
@@ -17,8 +17,17 @@ shortest_paths_t *get_shortest_paths(node_t *src, graph_t *graph) {
         return NULL;
     }
 
-    //add src to paths first
-    path_t src_path = {NULL, src, NULL};
+    // add edge to src with cost 0
+    edge_t *start_edge = malloc(sizeof(edge_t));
+    if (start_edge == NULL) {
+        delete_shortest_paths(paths);
+        delete_queue(queue);
+        return NULL;
+    }
+    start_edge->to = src;
+    start_edge->cost = 0U;
+
+    path_t src_path = {NULL, start_edge};
     if (!add_new_path(paths, src_path)) {
         delete_queue(queue);
         delete_shortest_paths(paths);
@@ -36,7 +45,7 @@ shortest_paths_t *get_shortest_paths(node_t *src, graph_t *graph) {
 
             if (neighbour_path == NULL) {
                 //add new path
-                path_t new_path = {min_node_path, edge->to, edge};
+                path_t new_path = {min_node_path,  edge};
                 uint64_t new_path_cost = get_path_cost(&new_path);
                 if (!add_new_path(paths, new_path)) {
                     delete_shortest_paths(paths);
@@ -81,14 +90,14 @@ bool add_new_path(shortest_paths_t *paths, path_t to_add) {
 
 path_t *get_path(shortest_paths_t *paths, node_t *node) {
     for (int i = 0; i < paths->count; ++i) {
-        if (paths->paths[i].to == node) {
+        if (paths->paths[i].via->to == node) {
             return &paths->paths[i];
         }
     }
     return NULL;
 }
 
-shortest_paths_t *create_shortest_paths(const graph_t *graph) {
+shortest_paths_t *create_shortest_paths() {
     shortest_paths_t *paths = malloc(sizeof(shortest_paths_t));
     if (paths == NULL) return NULL;
     paths->paths = NULL;
@@ -102,7 +111,7 @@ void delete_shortest_paths(shortest_paths_t *paths) {
     free(paths);
 }
 
-uint64_t get_path_cost(path_t *path) {
+uint64_t get_path_cost(const path_t *path) {
     if (path == NULL) {
         return 0U;
     }
